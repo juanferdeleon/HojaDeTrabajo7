@@ -1,44 +1,80 @@
-import javax.naming.NamingEnumeration;
-import javax.swing.plaf.nimbus.NimbusLookAndFeel;
-import java.util.Comparator;
+import java.lang.reflect.Constructor;
 import java.util.Objects;
 
 /**
  * Generic class of a BinaryTree
  * @param <E>
+ * @author Juanfer De Leon
  */
 public class BinaryTree<E> {
 
     //Atributes
-    Object node;
+    Object node = null;
     BinaryTree left;
     BinaryTree right;
 
+    /**
+     * Constructor
+     */
     public BinaryTree(){
-        node = null;
-        left = null;
-        right = null;
     }
 
+    /**
+     * Constructor
+     * @param node
+     */
     public BinaryTree(Object node){
         this.node = node;
     }
 
+    /**
+     * Method that adds a node to the tree
+     * @param newNode
+     */
     public void insert(Object newNode){
         if (this.node == null){//If the tree is empty it creates a new one
             setNode(newNode);
         } else {
-            if (node.toString().compareTo(newNode.toString()) == -1){
-                left.insert(newNode);
-            } else if (node.toString().compareTo(newNode.toString()) == 1){
-                right.insert(newNode);
-            } else if (node.toString().compareTo(newNode.toString()) == 0){
-                BinaryTree newTree = new BinaryTree(newNode);
-                right = newTree;
+            if (newNode.toString().compareTo(node.toString()) < 0){
+                if (left == null){
+                    left = new BinaryTree();
+                    left.insert(newNode);
+                } else {
+                    left.insert(newNode);
+                }
+            } else if (newNode.toString().compareTo(node.toString()) > 0){
+                if (right == null){
+                    right = new BinaryTree();
+                    right.insert(newNode);
+                } else {
+                    right.insert(newNode);
+                }
             }
+// else if (newNode.toString().compareTo(node.toString()) == 0){
+//                BinaryTree newTree = new BinaryTree(newNode);
+//                right = new BinaryTree();
+//                right = newTree;
+//            }
         }
     }
 
+    /**
+     * Search
+     * @param searchNode
+     * @return
+     */
+    public Object search(Object searchNode){//Looks for the node
+        if (this.node == searchNode){
+            return this.node;
+        } else {
+            if (node.toString().compareTo(searchNode.toString()) == -1){
+                left.search(searchNode);
+            } else if (node.toString().compareTo(searchNode.toString()) == 1){
+                right.search(searchNode);
+            }
+        }
+        return null;
+    }
 
     /**
      * Node Getter
