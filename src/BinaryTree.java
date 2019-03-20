@@ -1,4 +1,6 @@
+import javax.sound.midi.Soundbank;
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -63,17 +65,29 @@ public class BinaryTree<E> {
      * @param searchNode
      * @return
      */
-    public Object search(Object searchNode){//Looks for the node
-        if (this.node == searchNode){
+    public Object search(BinaryTree binaryTree, Object searchNode){//Looks for the node
+        if (binaryTree.getNode().toString().equals(searchNode)){
             return this.node;
         } else {
-            if (node.toString().compareTo(searchNode.toString()) == -1){
-                left.search(searchNode);
-            } else if (node.toString().compareTo(searchNode.toString()) == 1){
-                right.search(searchNode);
+            if (searchNode.toString().compareTo(node.toString()) < 0){
+                return left.search(left, searchNode);
+            } else if (searchNode.toString().compareTo(node.toString()) > 0){
+                return right.search(right, searchNode);
             }
         }
         return null;
+    }
+
+    public Object inOrder(BinaryTree binaryTree){
+        ArrayList inOrder = new ArrayList();
+        if (binaryTree.getLeft() != null){
+            inOrder.add(inOrder(binaryTree.getLeft()));
+        } else if (binaryTree.getRight() != null){
+            inOrder.add(inOrder(binaryTree.getRight()));
+        } else {
+            inOrder.add(binaryTree.getNode());
+        }
+        return inOrder;
     }
 
     /**
