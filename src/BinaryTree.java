@@ -47,11 +47,6 @@ public class BinaryTree<E> {
                     right.insert(newNode);
                 }
             }
-// else if (newNode.toString().compareTo(node.toString()) == 0){
-//                BinaryTree newTree = new BinaryTree(newNode);
-//                right = new BinaryTree();
-//                right = newTree;
-//            }
         }
     }
 
