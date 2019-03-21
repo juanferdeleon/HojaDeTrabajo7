@@ -2,13 +2,17 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main program
+ * @author Juanfer De Leon
+ */
 public class HojaDeTrabajo7 {
 
     public static void main(String[] args) throws IOException {
 
         boolean wantsToContinue = true;
 
-        BinaryTree dictionary = new BinaryTree();
+        BinaryTree dictionary = null;
         ArrayList<String> sentence;
 
         while (wantsToContinue){
@@ -24,6 +28,8 @@ public class HojaDeTrabajo7 {
                     Scanner input2 = new Scanner(System.in);
                     String path = input2.next();
                     dictionary = readWords(path);
+                    System.out.println("\nPalabras disponibles(InOrder):\n");
+                    System.out.println(BinaryTree.inOrder(dictionary));
                     break;
                 case "2":
                     if (dictionary != null){
@@ -80,8 +86,8 @@ public class HojaDeTrabajo7 {
 
         while ((line = bufferedReader.readLine()) != null) {
             String[] words = line.split(", ");
-            String englishWord = words[0];
-            String spanishWord = words[1];
+            String englishWord = words[0].toLowerCase();
+            String spanishWord = words[1].toLowerCase();
             Association association = new Association(englishWord, spanishWord);
             binaryTree.insert(association);
         }
@@ -123,7 +129,8 @@ public class HojaDeTrabajo7 {
         ArrayList<String> newSentece = new ArrayList();
 
         for (String word:sentence) {
-            Association association = (Association) dictionary.search(word);
+
+            Association association = (Association) dictionary.search(word.toLowerCase());
             if (association != null){
                 newSentece.add(association.getSpanishWord());
             } else {

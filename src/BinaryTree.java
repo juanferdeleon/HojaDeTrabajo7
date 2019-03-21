@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Generic class of a BinaryTree
  * @param <E>
@@ -87,15 +85,24 @@ public class BinaryTree<E> {
         return null;
     }
 
-    public Object inOrder(BinaryTree binaryTree){
-        ArrayList inOrder = new ArrayList();
+    /**
+     * String of the words on InOrder
+     * @param binaryTree
+     * @return
+     */
+    public static Object inOrder(BinaryTree binaryTree){
+        String inOrder = "";
+
         if (binaryTree.getLeft() != null){
-            inOrder.add(inOrder(binaryTree.getLeft()));
-        } else if (binaryTree.getRight() != null){
-            inOrder.add(inOrder(binaryTree.getRight()));
-        } else {
-            inOrder.add(binaryTree.getNode());
+            inOrder += inOrder(binaryTree.getLeft());
         }
+
+        inOrder += binaryTree.getNode() + "\n";
+
+        if (binaryTree.getRight() != null){
+            inOrder += inOrder(binaryTree.getRight());
+        }
+
         return inOrder;
     }
 
