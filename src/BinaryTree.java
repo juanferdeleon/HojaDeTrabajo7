@@ -1,7 +1,4 @@
-import javax.sound.midi.Soundbank;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Generic class of a BinaryTree
@@ -65,15 +62,27 @@ public class BinaryTree<E> {
      * @param searchNode
      * @return
      */
-    public Object search(BinaryTree binaryTree, Object searchNode){//Looks for the node
-        if (binaryTree.getNode().toString().equals(searchNode)){
-            return this.node;
-        } else {
-            if (searchNode.toString().compareTo(node.toString()) < 0){
-                return left.search(left, searchNode);
-            } else if (searchNode.toString().compareTo(node.toString()) > 0){
-                return right.search(right, searchNode);
+    public Object search(Object searchNode){//Looks for the node
+        if (this.node != null){
+            if (this.node.toString().equals(searchNode)){
+                return this.node;
+            } else {
+                if (searchNode.toString().compareTo(node.toString()) < 0){
+                    if (left != null){
+                        return left.search(searchNode);
+                    } else {
+                        return null;
+                    }
+                } else if (searchNode.toString().compareTo(node.toString()) > 0){
+                    if (right != null){
+                        return right.search(searchNode);
+                    } else {
+                        return null;
+                    }
+                }
             }
+        } else {
+            return null;
         }
         return null;
     }

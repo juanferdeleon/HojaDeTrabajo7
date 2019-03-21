@@ -1,3 +1,7 @@
+/**
+ * Association class
+ * @author Juanfer De Leon
+ */
 public class Association {
 
     //Atributes
